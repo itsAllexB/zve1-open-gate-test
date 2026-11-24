@@ -85,15 +85,15 @@ def sessions():
 
 
 def last_check():
-    """The newest saved read-only check that fetched a result: (folder name, ready?) or None. A check that stopped before the camera
-    answered (no driver yet, no camera seen, an old result on the RAM disk: all seen on the first A7S III run) says nothing and is skipped.
-    Only results of this kit's helper (zvread_v2: it also reads the raw write buffer's size) count."""
+    """The newest saved read-only check or dump that fetched a result: (folder name, ready?) or None. A session that stopped
+    before the camera answered is skipped. Only zvread_v3 results count; both a stock preflight and a coherent applied
+    closing dump (with or without --no-meta, --no-screen, or C2-cycled preview) report ready, while mixed/partial states do not."""
     for folder, man in sessions():
         res = man.get("results", {})
         f = (res.get("ct6", {}).get("result") or {}).get("s3")
         if res.get("which") in ("check", "dump") and f:       # a dump makes every check the check makes, and gives the same verdict
-            current = "zvread_v2 " in f.get("header", "")
-            return folder.name, current and bool(f.get("ready")) and not f.get("identity_differs")
+            current = f.get("header") == "zvread zvread_v3 %s for ZV-E1 2.02; read-only" % res["which"]
+            return folder.name, current and f.get("ready") is True and not f.get("identity_differs")
     return None
 
 

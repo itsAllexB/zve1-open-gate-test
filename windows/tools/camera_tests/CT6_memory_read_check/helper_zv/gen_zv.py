@@ -3,7 +3,7 @@
   work/venv/Scripts/python.exe -I -B gen_zv.py
 
 helper_s3/gen_s3.py with this build's files, designs and addresses (modding/ZVE1_PORT.md). Everything the helper compares against is
-taken here from the extracted 2.02 update and from modding/designs/{ogsq_zv_v2, outsz2560_zv_v1, ogfile2560_hs_s_zv_v1, lcdfill_zv_v2,
+taken here from the extracted 2.02 update and from modding/designs/{ogsq_zv_v2, outsz2560_zv_v1, ogfile2560_hs_s_zv_v2, lcdfill_zv_v2,
 dmmwb_zv_v1}.json. zvread_v2 (2026-11-24, after the first camera test): the stored record's target is ogsq_zv_v2's, and the movie raw write
 buffer's size word (dmmwb_zv_v1, the memory manager's RAM copy of DmmCfg.bin) is a site, so that a check shows it stock or new.
 Also writes zv_expected.json (what the PC checks against) and zv_reference.json (what the PC needs to read a dump). Read-only on the inputs.
@@ -18,7 +18,7 @@ ROOT = HERE.parents[2]
 EX = ROOT / "work/extracted/zve1_202/0700_part_image/dev"
 DES = ROOT / "modding/designs"
 BASE = 0x108000
-LABEL = "zvread_v2"
+LABEL = "zvread_v3"
 CP_LO, CP_HI = 0xC0000, 0x2700000                     # coprocessor addresses a read may have: its logs (tomco.txt), image and RAM tables
 AVCAM_PHYS, AVCAM_RESERVE = 0x401000000, "@0x401000000"   # kemco.txt: memrsv=0x01000000@0x401000000:ex (byte-identical to the A7C II's)
 ID_FILES = {"/libmpr.so": "nflasha15/lib/libmpr.so", "/libsencore.so": "nflasha15/lib/libsencore.so", "/libJiritsu.so": "nflasha15/lib/libJiritsu.so"}
@@ -37,7 +37,7 @@ DUMP_RANGES = (("shadow", 0x11BD000, 2), ("matrix", 0x10CD000, 3), ("sizetable",
                ("display", 0x1F5000, 1), ("frametab", 0xE9B000, 1), ("paneltype", 0x1A71000, 1),
                # the memory manager (dmmwb_zv_v1): its page of pointers 0x19cf000 and the unit records around the write buffer's 0x2580144
                ("dmmglobals", 0x19CF000, 1), ("dmmrecs", 0x2580000, 1))
-DESIGNS = ("ogsq_zv_v2", "outsz2560_zv_v1", "ogfile2560_hs_s_zv_v1", "lcdfill_zv_v2", "dmmwb_zv_v1")
+DESIGNS = ("ogsq_zv_v2", "outsz2560_zv_v1", "ogfile2560_hs_s_zv_v2", "lcdfill_zv_v2", "dmmwb_zv_v1")
 UNIT, CLIP, DESC, DSIZE = 0x38F848, 0x38D7EC, 0x38F8E8, 0x88           # av-cam.bin tables of this build (build_ogfile.py zve1_202)
 
 

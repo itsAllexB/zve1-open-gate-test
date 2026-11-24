@@ -272,7 +272,11 @@ static const unsigned char B266[] = {112,8};
 static const unsigned char B267[] = {0,10};
 static const unsigned char B268[] = {112,8,0,0};
 static const unsigned char B269[] = {0,10,0,0};
-#define ZV_LABEL "zvread_v2"
+static const unsigned char B270[] = {6,14,129,82};
+static const unsigned char B271[] = {6,64,129,82};
+static const unsigned char B272[] = {6,14,129,82};
+static const unsigned char B273[] = {6,64,129,82};
+#define ZV_LABEL "zvread_v3"
 #define CP_LO 0xc0000U
 #define CP_HI 0x2700000U
 #define AVCAM_PHYS 0x401000000UL
@@ -332,6 +336,8 @@ static const struct mp_site lm_sites[] = {
     {0x2b2da6UL, 2, B62, B63},
     {0x2b2cfeUL, 2, B164, B165},
     {0x2b2d2eUL, 2, B166, B167},
+    {0x207d8cUL, 4, B270, B271},
+    {0x207dd8UL, 4, B272, B273},
 };
 static const struct mp_site av_sites[] = {
     {0x38f878UL, 16, B64, B65},
